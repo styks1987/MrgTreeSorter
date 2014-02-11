@@ -19,7 +19,7 @@
 
 			$this->Js->buffer($this->Js->get('#primaryNav')->nestedSortable($this->options));
 			$this->Js->buffer('$( "#primaryNav" ).disableSelection();');
-			return $this->Html->tag('ul', $this->MrgMenu->build($list), [ 'id'=>'primaryNav']);
+			return $this->Html->tag('ul', $this->MrgMenu->build($list, 'admin'), [ 'id'=>'primaryNav']);
 		}
 	}
 

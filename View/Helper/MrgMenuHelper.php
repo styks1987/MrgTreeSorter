@@ -48,7 +48,9 @@
 				case 'main-menu':
 					return $this->_link_main();
 					break;
-
+				case 'admin':
+					return $this->_link_editable();
+					break;
 				default:
 					return $this->_link_default();
 					break;
@@ -64,6 +66,23 @@
 						$this->Html->tag('span', $this->Html->link($this->item['MenuItem']['link_text'], $this->item['MenuItem']['link'], ['class'=>'nestable-handle-link']), ['class'=>'nestable-handle']).
 						$this->children,
 					//),
+					['class'=>'nestable-item', 'id'=>'MenuItem_'.$this->item['MenuItem']['id']]
+				);
+
+			return $menu_item;
+		}
+
+		/**
+		 * create a link to the edit page instead of the view page
+		 *
+		 * Date Added: Tue, Feb 11, 2014
+		 */
+
+		private function _link_editable(){
+			$menu_item =
+				$this->Html->tag('li',
+						$this->Html->tag('span', $this->Html->link($this->item['MenuItem']['link_text'], '/admin/menu_items/edit/'.$this->item['MenuItem']['id'], ['class'=>'nestable-handle-link']), ['class'=>'nestable-handle']).
+						$this->children,
 					['class'=>'nestable-item', 'id'=>'MenuItem_'.$this->item['MenuItem']['id']]
 				);
 
