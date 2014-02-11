@@ -60,11 +60,11 @@
 
 			$menu_item =
 				$this->Html->tag('li',
-					$this->Html->div('nestable-item-box',
+					//$this->Html->div('nestable-item-box',
 						$this->Html->tag('span', $this->Html->link($this->item['MenuItem']['link_text'], $this->item['MenuItem']['link'], ['class'=>'nestable-handle-link']), ['class'=>'nestable-handle']).
-						$this->children
-					),
-					['class'=>'nestable-item']
+						$this->children,
+					//),
+					['class'=>'nestable-item', 'id'=>'MenuItem_'.$this->item['MenuItem']['id']]
 				);
 
 			return $menu_item;
