@@ -59,11 +59,18 @@
 		}
 
 		private function _link_default(){
+			// If the user linked this item directly to an actual object in the database
+			// Make sure the link points to that item
+			if(!empty($this->item['MenuItem']['model']) && !empty($this->item['MenuItem']['foreign_key'])){
+				$link = '/'.Inflector::pluralize(Inflector::underscore($this->item['MenuItem']['model'])).'/view/'.$this->item['MenuItem']['foreign_key'];
+			}else{
+				$link = $this->item['MenuItem']['link'];
+			}
 
 			$menu_item =
 				$this->Html->tag('li',
 					//$this->Html->div('nestable-item-box',
-						$this->Html->tag('span', $this->Html->link($this->item['MenuItem']['link_text'], $this->item['MenuItem']['link'], ['class'=>'nestable-handle-link']), ['class'=>'nestable-handle']).
+						$this->Html->tag('span', $this->Html->link($this->item['MenuItem']['link_text'], $link, ['class'=>'nestable-handle-link']), ['class'=>'nestable-handle']).
 						$this->children,
 					//),
 					['class'=>'nestable-item', 'id'=>'MenuItem_'.$this->item['MenuItem']['id']]
