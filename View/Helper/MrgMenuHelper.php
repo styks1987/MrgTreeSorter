@@ -64,7 +64,10 @@
 
 		private function _link_default($item){
 			$link = $this->_get_url($item);
-
+			$item['active_class'] = 'inactive';
+			// If the top menu is active url or any of the children
+			$item['current_page_status'] = $this->_is_active($item);
+			$item['active_class'] = $this->_get_active_class($item['current_page_status']);
 			$menu_item =
 				$this->Html->tag('li',
 					//$this->Html->div('nestable-item-box',
@@ -124,7 +127,7 @@
 				$this->Html->tag('li',
 					$this->Html->link($item['MenuItem']['link_text'], $item['MenuItem']['link'], array('escape'=>false)).$span.
 					$sub_nav,
-					array('class'=>$link_class)
+					array('class'=>$link_class.' '.$item['active_class'])
 				);
 
 			$menu_item = (!empty($item['MenuItem']['new_column']) && $item['MenuItem']['new_column'])? '</ul><ul class="new_column">'.$menu_item:$menu_item;
@@ -164,19 +167,18 @@
 			if($this->_get_url($item) == $this->here){
 				// The current page we are looking at is active, so no need to go further
 				return 1;
-			}else{
-				if(!empty($item['children'])){
-					// Check the children for an active item
-					foreach($item['children'] as $item){
-						if($this->_get_url($item) == $this->here){
-							return 2;
-						}
+			}elseif(!empty($item['children'])){
+				// Check the children for an active item
+				foreach($item['children'] as $item){
+					if($this->_get_url($item) == $this->here){
+						return 2;
 					}
-					return 0;
-				}else{
-					return 0;
 				}
-
+				return 0;
+			}elseif(strstr($this->_get_url($item),$this->params->controller)){
+				return 2;
+			}else{
+				return 0;
 			}
 		}
 
