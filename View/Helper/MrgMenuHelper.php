@@ -146,7 +146,8 @@
 			// If the user linked this item directly to an actual object in the database
 			// Make sure the link points to that item
 			if(!empty($item['MenuItem']['model']) && !empty($item['MenuItem']['foreign_key'])){
-				$link = '/'.Inflector::pluralize(Inflector::underscore($item['MenuItem']['model'])).'/view/'.$item['MenuItem']['foreign_key'];
+				$identifier = !empty($item['MenuItem']['slug']) ? $item['MenuItem']['slug'] : $item['MenuItem']['foreign_key'];
+				$link = '/'.Inflector::pluralize(Inflector::underscore($item['MenuItem']['model'])).'/view/'.$identifier;
 			}else{
 				$link = $item['MenuItem']['link'];
 			}
