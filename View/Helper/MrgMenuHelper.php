@@ -23,9 +23,6 @@
 				$item['current_page_status'] = $this->_is_active($item);
 				$item['active_class'] = $this->_get_active_class($item['current_page_status']);
 				if(!empty($item['children'])){
-
-
-
 					$this->children = $this->build($item['children'], $this->type);
 					$this->children = $this->Html->tag('ul', $this->children, ['class'=>$item['active_class']]);
 				}else{
