@@ -173,7 +173,7 @@
 					}
 				}
 				return 0;
-			}elseif(strstr($this->_get_url($item),$this->params->controller)){
+			}elseif(!empty($item['children']) && strstr($this->_get_url($item),$this->params->controller)){
 				return 2;
 			}else{
 				return 0;
