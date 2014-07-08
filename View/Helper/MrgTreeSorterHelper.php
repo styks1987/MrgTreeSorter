@@ -15,11 +15,26 @@
 
 		public function sortable($list, $options = []){
 			$this->options = array_merge($this->options, $options);
+			$this->Html->script('MrgTreeSorter.jquery.ui.js', ['inline'=>false]);
 			$this->Html->script('MrgTreeSorter.jquery.nested_sortable.js', ['inline'=>false]);
 
 			$this->Js->buffer($this->Js->get('#primaryNav')->nestedSortable($this->options));
 			$this->Js->buffer('$( "#primaryNav" ).disableSelection();');
 			return $this->Html->tag('ul', $this->MrgMenu->build($list, 'admin'), [ 'id'=>'primaryNav']);
+		}
+
+		/**
+		 * generate a sitemap ul li
+		 *
+		 * Date Added: Mon, Jul 07, 2014
+		 */
+
+		public function sitemap($list, $options = []){
+			// Type could be admin_sitemap
+			// This will provide editing links and such
+			$defaults = ['type'=>'sitemap' , 'id'=>'sitemap'];
+			$options = array_merge($defaults, $options);
+			return $this->Html->tag('ul', $this->MrgMenu->build($list, $options['type']), [ 'id'=>$options['id']]);
 		}
 	}
 
