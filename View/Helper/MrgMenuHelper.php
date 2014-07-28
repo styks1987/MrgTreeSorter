@@ -123,12 +123,12 @@
 			}else{
 
 				if($item['MenuItem']['model'] != 'Custom'){
-					$edit_url = ' '.$this->Html->link($this->Html->tag('span', '', ['class'=>'glyphicon glyphicon-pencil']), '/admin/'.Inflector::pluralize($item['MenuItem']['model']).'/edit/'.$item['MenuItem']['foreign_key'], ['title'=>'Edit Page', 'escape'=>false]);
+					$edit_url = ' '.$this->Html->link($this->Html->tag('span', '', ['class'=>'glyphicon glyphicon-pencil']), '/admin/'.Inflector::pluralize(Inflector::underscore($item['MenuItem']['model'])).'/edit/'.$item['MenuItem']['foreign_key'], ['title'=>'Edit Page', 'escape'=>false]);
 				}else{
 					$edit_url = '';
 				}
 
-					$edit_link = $this->Html->link($this->Html->tag('span', '', ['class'=>'glyphicon glyphicon-link']), '/admin/MenuItem/edit/'.$item['MenuItem']['id'], ['title'=>'Edit Menu Item', 'escape'=>false]);
+					$edit_link = $this->Html->link($this->Html->tag('span', '', ['class'=>'glyphicon glyphicon-link']), '/admin/menu_items/edit/'.$item['MenuItem']['id'], ['title'=>'Edit Menu Item', 'escape'=>false]);
 
 				$menu_item =
 					$this->Html->tag('li',
