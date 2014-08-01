@@ -24,7 +24,7 @@
 				$item['active_class'] = $this->_get_active_class($item['current_page_status']);
 				if(!empty($item['children'])){
 					$this->children = $this->build($item['children'], $this->type);
-					$this->children = $this->Html->tag('ul', $this->children, ['class'=>$item['active_class']]);
+					$this->children = $this->Html->tag('ul', $this->children, ['id'=>'collapsable_'.$item['MenuItem']['id'], 'class'=>'collapse '.$item['active_class']]);
 				}else{
 					$this->children = '';
 				}
@@ -127,15 +127,21 @@
 				}else{
 					$edit_url = '';
 				}
-
 					$edit_link = $this->Html->link($this->Html->tag('span', '', ['class'=>'glyphicon glyphicon-link']), '/admin/menu_items/edit/'.$item['MenuItem']['id'], ['title'=>'Edit Menu Item', 'escape'=>false]);
+				$expand = '';
+				if(!empty($this->children)){
+					$expand = $this->Html->link('<i class="glyphicon glyphicon-chevron-up"></i>', 'javascript:void(0)', ['class'=>'collapsed expandable', 'escape'=>false, 'data-toggle'=>'collapse', 'data-target'=>'#collapsable_'.$item['MenuItem']['id']]);
+				}
+
 
 				$menu_item =
 					$this->Html->tag('li',
+
 							$this->Html->tag('span',
 								$this->Html->tag('span', $item['MenuItem']['link_text'], ['class'=>'link_title']).
 								$edit_url.
-								$edit_link,
+								$edit_link.
+								$expand,
 							['class'=>'nestable-handle']).
 							$this->children,
 						['class'=>'nestable-item', 'id'=>'MenuItem_'.$item['MenuItem']['id']]
