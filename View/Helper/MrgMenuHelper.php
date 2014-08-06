@@ -24,7 +24,8 @@
 				$item['active_class'] = $this->_get_active_class($item['current_page_status']);
 				if(!empty($item['children'])){
 					$this->children = $this->build($item['children'], $this->type);
-					$this->children = $this->Html->tag('ul', $this->children, ['id'=>'collapsable_'.$item['MenuItem']['id'], 'class'=>'collapse '.$item['active_class']]);
+					$collapse = ($this->type == 'admin_sitemap') ? 'collapse' : '';
+					$this->children = $this->Html->tag('ul', $this->children, ['id'=>'collapsable_'.$item['MenuItem']['id'], 'class'=>$collapse.' '.$item['active_class']]);
 				}else{
 					$this->children = '';
 				}
