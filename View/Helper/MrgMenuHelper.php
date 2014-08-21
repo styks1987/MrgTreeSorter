@@ -75,10 +75,14 @@
 			if(isset($item['MenuItem']['visible_child']) && $item['MenuItem']['visible_child'] == 0){
 				$this->children = '';
 			}
+
+			$external = (strpos($item['MenuItem']['link'], '/') == 0)? [] : ['target'=>'_blank'];
+			$menu_item_options = array_merge(['class'=>'nestable-handle-link'], $external);
+
 			$menu_item =
 				$this->Html->tag('li',
 					//$this->Html->div('nestable-item-box',
-						$this->Html->tag('span', $this->Html->link($item['MenuItem']['link_text'], $link, ['class'=>'nestable-handle-link']), ['class'=>'nestable-handle']).
+						$this->Html->tag('span', $this->Html->link($item['MenuItem']['link_text'], $link, $menu_item_options), ['class'=>'nestable-handle']).
 						$this->children,
 					//),
 					['class'=>'nestable-item '.$item['active_class'], 'id'=>'MenuItem_'.$item['MenuItem']['id']]
@@ -174,10 +178,11 @@
 				$span = '';
 				$sub_nav = '';
 			}
-
+			$external = (strpos($item['MenuItem']['link'], '/') == 0)? [] : ['target'=>'_blank'];
+			$menu_item_options = array_merge(array('escape'=>false), $external);
 			$menu_item =
 				$this->Html->tag('li',
-					$this->Html->link($item['MenuItem']['link_text'], $item['MenuItem']['link'], array('escape'=>false)).$span.
+					$this->Html->link($item['MenuItem']['link_text'], $item['MenuItem']['link'], $menu_item_options).$span.
 					$sub_nav,
 					array('class'=>$link_class.' '.$item['active_class'])
 				);
