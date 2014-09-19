@@ -75,8 +75,7 @@
 			if(isset($item['MenuItem']['visible_child']) && $item['MenuItem']['visible_child'] == 0){
 				$this->children = '';
 			}
-
-			$external = (strpos($item['MenuItem']['link'], '/') == 0)? [] : ['target'=>'_blank'];
+			$external = (strpos($item['MenuItem']['link'], '/') == 0 && !strstr($item['MenuItem']['link'], FULL_BASE_URL))? [] : ['target'=>'_blank'];
 			$menu_item_options = array_merge(['class'=>'nestable-handle-link'], $external);
 
 			$menu_item =
@@ -98,9 +97,6 @@
 		 */
 
 		private function _link_editable($item){
-
-
-
 			$menu_item =
 				$this->Html->tag('li',
 						$this->Html->tag('span',
@@ -111,7 +107,6 @@
 						$this->children,
 					['class'=>'nestable-item', 'id'=>'MenuItem_'.$item['MenuItem']['id']]
 				);
-
 			return $menu_item;
 		}
 
@@ -178,7 +173,7 @@
 				$span = '';
 				$sub_nav = '';
 			}
-			$external = (strpos($item['MenuItem']['link'], '/') == 0)? [] : ['target'=>'_blank'];
+			$external = (strpos($item['MenuItem']['link'], '/') == 0 && !strstr($item['MenuItem']['link'], FULL_BASE_URL))? [] : ['target'=>'_blank'];
 			$menu_item_options = array_merge(array('escape'=>false), $external);
 			$menu_item =
 				$this->Html->tag('li',
