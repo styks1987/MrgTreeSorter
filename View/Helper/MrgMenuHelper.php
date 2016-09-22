@@ -98,15 +98,17 @@
 		 */
 
 		private function _link_editable($item){
-
-
+			$delete = '';
+			if(empty($this->children)){
+				$delete = $this->Html->link($this->Html->tag('span', '', ['class'=>'glyphicon glyphicon-remove pull-right']), '/admin/menu_items/delete/'.$item['MenuItem']['id'],
+					['confirm'=>'Are you sure you want to delete this menu item?', 'escape'=>false]);
+			}
 
 			$menu_item =
 				$this->Html->tag('li',
 						$this->Html->tag('span',
 							$this->Html->link($item['MenuItem']['link_text'], '/admin/menu_items/edit/'.$item['MenuItem']['id'], ['class'=>'link_title nestable-handle-link']).
-							$this->Html->link($this->Html->tag('span', '', ['class'=>'glyphicon glyphicon-remove pull-right']), '/admin/menu_items/delete/'.$item['MenuItem']['id'],
-													['confirm'=>'Are you sure you want to delete this menu item?', 'escape'=>false]),
+							$delete,
 						['class'=>'nestable-handle']).
 						$this->children,
 					['class'=>'nestable-item', 'id'=>'MenuItem_'.$item['MenuItem']['id']]
