@@ -104,16 +104,26 @@
 					['confirm'=>'Are you sure you want to delete this menu item?', 'escape'=>false]);
 			}
 
-			$menu_item =
-				$this->Html->tag('li',
+			if($item['MenuItem']['link_text'] == 'Main Menu'){
+				$menu_item =
+					$this->Html->tag('li',
 						$this->Html->tag('span',
-							$this->Html->link($item['MenuItem']['link_text'], '/admin/menu_items/edit/'.$item['MenuItem']['id'], ['class'=>'link_title nestable-handle-link']).
-							$delete,
-						['class'=>'nestable-handle']).
+							$item['MenuItem']['link_text']) .
 						$this->children,
-					['class'=>'nestable-item', 'id'=>'MenuItem_'.$item['MenuItem']['id']]
-				);
+						['class' => 'nestable-item', 'id' => 'MenuItem_' . $item['MenuItem']['id']]
+					);
+			}else {
+				$menu_item =
+					$this->Html->tag('li',
+						$this->Html->tag('span',
+							$this->Html->link($item['MenuItem']['link_text'], '/admin/menu_items/edit/' . $item['MenuItem']['id'], ['class' => 'link_title nestable-handle-link']) .
+							$delete,
+							['class' => 'nestable-handle']) .
+						$this->children,
+						['class' => 'nestable-item', 'id' => 'MenuItem_' . $item['MenuItem']['id']]
+					);
 
+			}
 			return $menu_item;
 		}
 
