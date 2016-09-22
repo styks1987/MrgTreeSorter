@@ -51,7 +51,8 @@
 			if(!$menu_item_id){
 				$this->MenuItem->create();
 			}else{
-				$menu_item['id'] = $menu_item_id;
+				$this->MenuItem->id = $menu_item['id'] = $menu_item_id;
+				$menu_item['ordering'] = $this->MenuItem->field('ordering');
 			}
 
 			if($this->MenuItem->save($menu_item)){
