@@ -32,9 +32,9 @@
 		public function sitemap($list, $options = []){
 			// Type could be admin_sitemap
 			// This will provide editing links and such
-			$defaults = ['type'=>'sitemap' , 'id'=>'sitemap'];
+			$defaults = ['type'=>'sitemap' , 'id'=>'sitemap', 'all_internal' => false];
 			$options = array_merge($defaults, $options);
-			return $this->Html->tag('ul', $this->MrgMenu->build($list, $options['type']), [ 'id'=>$options['id']]);
+			return $this->Html->tag('ul', $this->MrgMenu->build($list, $options['type'], $options['all_internal']), [ 'id'=>$options['id']]);
 		}
 	}
 

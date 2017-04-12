@@ -7,6 +7,7 @@
 		var $helpers = array('Html');
 		private $item; // A MenuItem entry
 		private $type; // What menu are we building
+		private $all_internal; //if true, all links will open in the same window (gets set to false by default)
 		private $children; // Current Menu Item's Children
 
 		/**
@@ -14,8 +15,10 @@
 			*  Description: Used for building the navigational menus
 			*  Date Added: Fri, Jul 19, 2013
 		*/
-		function build($menu_items, $type=null){
+		function build($menu_items, $type = null, $all_internal = false){
 			$this->type = $type;
+			$this->all_internal = $all_internal;
+
 			$menu = '';
 			foreach ($menu_items as $item){
 				$item['active_class'] = 'inactive';
@@ -23,7 +26,7 @@
 				$item['current_page_status'] = $this->_is_active($item);
 				$item['active_class'] = $this->_get_active_class($item['current_page_status']);
 				if(!empty($item['children'])){
-					$this->children = $this->build($item['children'], $this->type);
+					$this->children = $this->build($item['children'], $this->type, $this->all_internal);
 					$collapse = ($this->type == 'admin_sitemap') ? 'collapse' : '';
 					$this->children = $this->Html->tag('ul', $this->children, ['id'=>'collapsable_'.$item['MenuItem']['id'], 'class'=>$collapse.' '.$item['active_class']]);
 				}else{
@@ -76,7 +79,7 @@
 				$this->children = '';
 			}
 
-			$external = (strpos($item['MenuItem']['link'], '/') == 0)? [] : ['target'=>'_blank'];
+			$external = (strpos($item['MenuItem']['link'], '/') == 0) || $this->all_internal ? [] : ['target'=>'_blank'];
 			$menu_item_options = array_merge(['class'=>'nestable-handle-link'], $external);
 
 			$menu_item =
@@ -190,7 +193,7 @@
 				$span = '';
 				$sub_nav = '';
 			}
-			$external = (strpos($item['MenuItem']['link'], '/') == 0)? [] : ['target'=>'_blank'];
+			$external = (strpos($item['MenuItem']['link'], '/') == 0) || $this->all_internal ? [] : ['target'=>'_blank'];
 			$menu_item_options = array_merge(array('escape'=>false), $external);
 			$menu_item =
 				$this->Html->tag('li',
